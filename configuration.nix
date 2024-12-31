@@ -57,12 +57,6 @@
     xwayland.enable = true;
     withUWSM = true;
  };
-#  programs.uwsm.enable = true;
-#  programs.hyprland.withUWSM.enable = true;
-#  programs.hypridle.enable = true;
-  services.hypridle.enable = true;
-#  programs.hyprlock.enable = true;
-  
 
   # enable opengl
   hardware = {
