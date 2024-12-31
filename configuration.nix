@@ -16,6 +16,9 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  #kernel version
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
   
@@ -52,7 +55,14 @@
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
-  };
+    withUWSM = true;
+ };
+#  programs.uwsm.enable = true;
+#  programs.hyprland.withUWSM.enable = true;
+#  programs.hypridle.enable = true;
+  services.hypridle.enable = true;
+#  programs.hyprlock.enable = true;
+  
 
   # enable opengl
   hardware = {
@@ -76,11 +86,11 @@
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
 
-  # Configure keymap in X11
-  services.xserver = {
-    layout = "us";
-    xkbVariant = "";
-  };
+#  # Configure keymap in X11
+#  services.xserver = {
+#    layout = "us";
+#    xkbVariant = "";
+#  };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -127,7 +137,9 @@
     fzf
     gparted
     git
+    hyprcursor
     hyprlock
+    hypridle
     hyprpolkitagent
     kitty
     waybar
@@ -151,7 +163,7 @@
     command-not-found.enable = false;
 
     bash = {
-      
+      completion.enable = true;
     #  cdls = { cd "$@" && ls; };
 
       #set bash aliases here
