@@ -70,6 +70,7 @@
       intel-media-driver # LIBVA_DRIVER_NAME=iHD
       intel-vaapi-driver # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
       libvdpau-va-gl
+      vpl-gpu-rt
     ];
   };
   environment.sessionVariables = { LIBVA_DRIVER_NAME = "iHD"; }; # Force intel-media-driver
@@ -142,6 +143,7 @@
     fzf
     gparted
     git
+    grim
     hyprcursor
     hyprlock
     hypridle
@@ -152,6 +154,7 @@
     rofi-wayland
     ripgrep
     networkmanagerapplet
+    slurp
     starship
     swww
     sway
@@ -160,6 +163,7 @@
     mpv
     pulseaudio
     pipewire
+    wf-recorder
     wget	
     tldr
     timeshift
