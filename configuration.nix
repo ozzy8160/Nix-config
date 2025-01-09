@@ -128,6 +128,7 @@
     cmatrix
     dunst
     fastfetch
+    ffmpeg
     fzf
     gparted
     git
@@ -153,6 +154,7 @@
     timeshift
     xclip
     zip
+    zoxide
   ];
 
   # bash stuff here
@@ -167,6 +169,7 @@
       shellAliases = {
 	v = "nvim";
 	sv = "sudo nvim";
+#	.. = "cd ..";
       };
     };
   };
