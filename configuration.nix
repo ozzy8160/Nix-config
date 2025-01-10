@@ -178,13 +178,17 @@
 
     bash = {
       completion.enable = true;
-    #  cdls = { cd "$@" && ls; };
+   #  cdls = { cd "$@" && ls; };
 
       #set bash aliases here
       shellAliases = {
+	#vim
 	v = "nvim";
 	sv = "sudo nvim";
-#	.. = "cd ..";
+	#nixos
+	rebuild = "sudo nixos-rebuild switch --flake $(readlink -f /home/ryan/.dotfiles/flakes)";
+	updt = "cd ~/.dotfiles/flakes/ && sudo nix flake update";
+
       };
     };
   };
