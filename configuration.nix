@@ -139,6 +139,7 @@
     cmatrix
     dunst
     fastfetch
+    fd
     ffmpeg
     fzf
     gparted
@@ -148,12 +149,16 @@
     hyprlock
     hypridle
     hyprpolkitagent
+    jq
     kitty
+    lsd
     waybar
     libnotify
+    rclone
     rofi-wayland
     ripgrep
     networkmanagerapplet
+    onlyoffice-desktopeditors
     slurp
     starship
     swww
@@ -164,7 +169,8 @@
     pulseaudio
     pipewire
     wf-recorder
-    wget	
+    wget
+    thefuck
     tldr
     timeshift
     xclip
@@ -178,17 +184,23 @@
 
     bash = {
       completion.enable = true;
-   #  cdls = { cd "$@" && ls; };
 
       #set bash aliases here
       shellAliases = {
+        b = "cd ..";
+	ls = "lsd";
+	s = "ssh ryan@192.168.1.18";
+	# Search command line history
+	h = "history | grep ";
 	#vim
 	v = "nvim";
 	sv = "sudo nvim";
 	#nixos
 	rebuild = "sudo nixos-rebuild switch --flake $(readlink -f /home/ryan/.dotfiles/flakes)";
 	updt = "cd ~/.dotfiles/flakes/ && sudo nix flake update";
-
+	#git
+	add = "git add ."; 
+	
       };
     };
   };
