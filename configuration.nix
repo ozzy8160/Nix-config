@@ -149,6 +149,7 @@
     hyprlock
     hypridle
     hyprpolkitagent
+    libsForQt5.kdenlive
     jq
     kitty
     lsd
@@ -159,6 +160,8 @@
     ripgrep
     networkmanagerapplet
     onlyoffice-desktopeditors
+    sftpman
+    sshfs
     slurp
     starship
     swww
