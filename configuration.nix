@@ -139,6 +139,7 @@
     waybar
     libnotify
     rofi-wayland
+    ripgrep
     networkmanagerapplet
     starship
     swww
@@ -148,8 +149,10 @@
     pulseaudio
     pipewire
     wget	
+    tldr
     timeshift
     xclip
+    zip
   ];
 
   # bash stuff here
