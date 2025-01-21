@@ -142,6 +142,7 @@
     fd
     ffmpeg
     fzf
+    gcc
     gparted
     git
     grim
@@ -191,7 +192,7 @@
       #set bash aliases here
       shellAliases = {
         b = "cd ..";
-	ls = "lsd";
+#	ls = "lsd";
 	s = "ssh ryan@192.168.1.18";
 	# Search command line history
 	h = "history | grep ";
