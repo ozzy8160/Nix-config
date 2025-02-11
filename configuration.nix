@@ -33,7 +33,7 @@
 
   # enable bluetooth
   hardware.bluetooth.enable = true; # enables support for Bluetooth
-  hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
+  hardware.bluetooth.powerOnBoot = false; # powers up the default Bluetooth controller on boot
   services.blueman.enable = true;
 
   # Enable networking and set host name
@@ -69,7 +69,7 @@
     intel-vaapi-driver = pkgs.intel-vaapi-driver.override { enableHybridCodec = true; };
   };
   # enable opengl
-  hardware.opengl = {
+  hardware.graphics = {
       # Opengl
       enable = true;
       extraPackages = with pkgs; [
@@ -94,7 +94,7 @@
   services.xserver.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
+  services.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
 
 #  # Configure keymap in X11
