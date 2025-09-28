@@ -19,7 +19,6 @@
   #garbage collection
   nix.settings.auto-optimise-store = true;
   nix.gc.automatic = true;
-  nix.gc.dates = "daily";
   nix.gc.options = "--delete-older-than +5"; 
 
   #kernel version
@@ -89,15 +88,10 @@
       add_newline = false;
     };
   };
-
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
-  # Enable the KDE Plasma Desktop Environment.
-  services.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
-
-#  # Configure keymap in X11
+  
+  services.displayManager.sddm.enable = true; 
+  services.displayManager.sddm.wayland.enable = true;
+# Configure keymap in X11
 #  services.xserver = {
 #    layout = "us";
 #    xkbVariant = "";
@@ -132,7 +126,7 @@
     description = "ryan";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-      floorp
+      floorp-bin
     ];
   };
 
@@ -156,14 +150,14 @@
     hyprlock
     hypridle
     hyprpolkitagent
-    libsForQt5.kdenlive
+    kdePackages.kdenlive
     jq
     kitty
     lsd
     waybar
     libnotify
     rclone
-    rofi-wayland
+    rofi
     ripgrep
     networkmanagerapplet
     onlyoffice-desktopeditors
@@ -180,7 +174,6 @@
     pipewire
     wf-recorder
     wget
-    thefuck
     tldr
     timeshift
     xclip
@@ -199,7 +192,8 @@
       shellAliases = {
         b = "cd ..";
 #	ls = "lsd";
-	s = "ssh ryan@192.168.1.18";
+	sj = "ssh ryan@192.168.1.58";
+	sn = "ssh ryan@192.168.1.114";
 	# Search command line history
 	h = "history | grep ";
 	#vim
