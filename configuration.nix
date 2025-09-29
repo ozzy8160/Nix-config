@@ -153,6 +153,7 @@
     kdePackages.kdenlive
     jq
     kitty
+    lazygit
     lsd
     waybar
     libnotify
