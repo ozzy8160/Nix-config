@@ -1,6 +1,6 @@
 # This can be built with nixos-rebuild --flake .#myhost build
 {
-  description = "the simplest flake for nixos-rebuild";
+  description = "ryan's custom flake W.I.P";
 
   inputs = {
     

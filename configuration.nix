@@ -88,15 +88,8 @@
       add_newline = false;
     };
   };
-  
-  services.displayManager.sddm.enable = true; 
-  services.displayManager.sddm.wayland.enable = true;
-# Configure keymap in X11
-#  services.xserver = {
-#    layout = "us";
-#    xkbVariant = "";
-#  };
 
+  services.getty.autologinUser = "ryan";
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
@@ -124,7 +117,7 @@
   users.users.ryan = {
     isNormalUser = true;
     description = "ryan";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "dialout" ];
     packages = with pkgs; [
       floorp-bin
     ];
@@ -134,6 +127,8 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    arduino
+    arduino-ide
     brightnessctl
     btop
     cmatrix
