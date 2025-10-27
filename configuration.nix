@@ -9,6 +9,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./terminal/fonts.nix
+      ./modules/cli.nix
 #      ./terminal/starship.nix
     ];
   #power managament
@@ -139,40 +140,24 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    neovim
-    bash-completion
     blueman
     brightnessctl
-    btop
     dunst
-    fastfetch
-    fd
     ffmpeg
-    fzf
-    gcc
-    git
     grim
     hyprcursor
     hyprlock
     hypridle
     hyprpolkitagent
     kdePackages.kdenlive
-    jq
     kitty
-    lazygit
-    lsd
     libnotify
     libvirt
     networkmanagerapplet
     pywal
     qemu
-    rclone
     rofi
-    ripgrep
-    sftpman
-    sshfs
     slurp
-    starship
     swww
     sway
     pavucontrol
@@ -182,13 +167,9 @@
     pipewire
     wf-recorder
     waybar
-    wget
-    tldr
     timeshift
     virt-manager
     xclip
-    zip
-    zoxide
   ];
   
   # bash stuff here
