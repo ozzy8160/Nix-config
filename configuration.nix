@@ -1,16 +1,11 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, inputs, ... }:
-
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./terminal/fonts.nix
       ./modules/cli.nix
-#      ./terminal/starship.nix
+      ./modules/hyprland.nix
     ];
   #power managament
   powerManagement.enable = true;
@@ -24,7 +19,7 @@
       configurationLimit = 5;
     };
   };
-
+  #flakes
   nix = {
     settings = {
       auto-optimise-store = true;
@@ -37,10 +32,8 @@
       options = "--delete-older-than 10d";
     };
   };
-
   #kernel version
   boot.kernelPackages = pkgs.linuxPackages_latest;
-
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
   
@@ -69,13 +62,7 @@
     LC_TIME = "en_US.UTF-8";
   };
   
-  #hyprland
   programs ={
-    hyprland = {
-      enable = true;
-      xwayland.enable = true;
-      withUWSM = true;
-    };
     starship = {
       enable = true;
       # Configuration written to ~/.config/starship.toml
@@ -87,8 +74,6 @@
       userAllowOther = true;
     };
   };
-
-
   #  nixpkgs.config.packageOverrides = pkgs: {
   #    intel-vaapi-driver = pkgs.intel-vaapi-driver.override { enableHybridCodec = true; };
   #  };
@@ -140,36 +125,14 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    blueman
-    brightnessctl
-    dunst
-    ffmpeg
-    grim
-    hyprcursor
-    hyprlock
-    hypridle
-    hyprpolkitagent
-    kdePackages.kdenlive
     kitty
     libnotify
     libvirt
-    networkmanagerapplet
-    pywal
     qemu
-    rofi
-    slurp
-    swww
-    sway
-    pavucontrol
     mpd
     mpv
-    pulseaudio
-    pipewire
-    wf-recorder
-    waybar
     timeshift
     virt-manager
-    xclip
   ];
   
   # bash stuff here
@@ -190,8 +153,8 @@
         	v = "nvim";
         	sv = "sudo nvim";
         	#nixos
-        	rebuild = "sudo nixos-rebuild switch --flake $(readlink -f /home/ryan/.dotfiles/flakes)";
-        	updt = "cd ~/.dotfiles/flakes/ && sudo nix flake update";
+        #	rebuild = "sudo nixos-rebuild switch --flake $(readlink -f /home/ryan/.dotfiles/flakes)";
+        	updt = "sudo nix flake update && sudo nixos-rebuild switch";
         	#git
         	add = "git add ."; 
 	

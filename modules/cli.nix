@@ -2,9 +2,11 @@
   {
     environment.systemPackages = with pkgs; [
       bash-completion
+      bat
       btop
       fastfetch
       fd
+      ffmpeg
       fzf
       gcc
       git
@@ -21,5 +23,5 @@
       tldr
       zip
       zoxide
-  ]
-};
+    ];
+}
