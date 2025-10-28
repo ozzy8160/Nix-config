@@ -6,6 +6,7 @@
       ./terminal/fonts.nix
       ./modules/cli.nix
       ./modules/hyprland.nix
+      ./modules/vms.nix
     ];
   #power managament
   powerManagement.enable = true;
@@ -108,10 +109,6 @@
     # no need to redefine it in your config for now)
     #media-session.enable = true;
 #  };
-
-  virtualisation.libvirtd.enable = true;
-  boot.kernelModules = [ "kvm-amd" "kvm-intel" ];
-  
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.ryan = {
     isNormalUser = true;
@@ -121,29 +118,20 @@
       floorp-bin
     ];
   };
-
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     kitty
-    libnotify
-    libvirt
-    qemu
     mpd
     mpv
     timeshift
-    virt-manager
   ];
-  
   # bash stuff here
   environment.pathsToLink = [ "/share/bash-completion" ];
   programs = {
     command-not-found.enable = false;
-
     bash = {
       completion.enable = true;
-
-      #set bash aliases here
       shellAliases = {
         b = "cd ..";
       #	ls = "lsd";
@@ -157,7 +145,6 @@
         	updt = "sudo nix flake update && sudo nixos-rebuild switch";
         	#git
         	add = "git add ."; 
-	
       };
     };
   };
@@ -181,16 +168,7 @@
     printing = {
       enable = true;
     };
-    qemuGuest = {
-      enable = true;
-    };
-    spice-vdagentd = {
-      enable = true;
-    };
   };
-
-
-
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 
