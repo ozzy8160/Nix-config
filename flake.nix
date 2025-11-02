@@ -31,5 +31,13 @@
         ];
       };
     };
+    nixosConfigurations = {
+      GamingPC = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./GamingPC/configuration.nix
+        ];
+      };
+    };
   };
 }

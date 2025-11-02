@@ -3,21 +3,33 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./../modules/fonts.nix
-      ./../modules/cli.nix
-      ./../modules/hyprland.nix
-      ./../modules/vms.nix
+#      ./../../terminal/fonts.nix
+#      ./../../modules/cli.nix
+#      ./../../modules/hyprland.nix
+#      ./../../modules/vms.nix
     ];
-  #power managament
-  powerManagement.enable = true;
-  # Bootloader.
-  boot.loader = {
-    efi = { 
-      canTouchEfiVariables = true;
-    };
-    systemd-boot = {
+#  #power managament
+#  powerManagement.enable = true;
+#  # Bootloader.
+#  boot.loader = {
+#    efi = { 
+#      canTouchEfiVariables = true;
+#    };
+#    systemd-boot = {
+#      enable = true;
+#      configurationLimit = 10;
+#    };
+#  };
+  programs = {
+    steam = {
       enable = true;
-      configurationLimit = 10;
+      remotePlay.openFirewall = true;
+    };
+    gamemode.enable = true;
+    sunshine.enable = true;
+    corectrl = {
+      enable = true;
+      gpuOverclock.enable = true;
     };
   };
   #auto
@@ -30,7 +42,7 @@
     #garbage collection
     gc = {
       automatic = true;
-      options = "--delete-older-than 30d";
+      options = "--delete-older-than 10d";
     };
   };
   #kernel version
@@ -39,9 +51,9 @@
   nixpkgs.config.allowUnfree = true;
   # Enable networking and set host name
   networking = {
-    hostName = "LT1";
     networkmanager = {
       enable = true;
+      hostName = "GamingPC";
     };
   };
 
@@ -74,6 +86,29 @@
       userAllowOther = true;
     };
   };
+  
+
+  # Bootloader.
+  boot.loader.grub.enable = true;
+  boot.loader.grub.device = "/dev/nvme0n1";
+  boot.loader.grub.useOSProber = true;
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable; # Same as production
+  # Enable automatic login for the user.
+  services.xserver.displayManager.autoLogin.enable = true;
+  services.xserver.displayManager.autoLogin.user = "ryan";
+
+  # Enable the X11 windowing system.
+  services.xserver.enable = true;
+
+  # Enable the KDE Plasma Desktop Environment.
+  services.xserver.displayManager.sddm.enable = true;
+  services.xserver.desktopManager.plasma5.enable = true;
+
+  # Configure keymap in X11
+  services.xserver = {
+    layout = "us";
+    xkbVariant = "";
+  
   #  nixpkgs.config.packageOverrides = pkgs: {
   #    intel-vaapi-driver = pkgs.intel-vaapi-driver.override { enableHybridCodec = true; };
   #  };
@@ -86,16 +121,7 @@
     };
     # enable opengl
     graphics = {
-      # Opengl
       enable = true;
-      extraPackages = with pkgs; [
-      intel-media-driver # LIBVA_DRIVER_NAME=iHD
-      libva-vdpau-driver # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
-      intel-compute-runtime-legacy1
-      #intel-vaapi-driver # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
-      #libvdpau-va-gl
-      #vpl-gpu-rt
-      ];
     };
   };
 #  # Enable sound with pipewire.
@@ -120,7 +146,7 @@
     description = "ryan";
     extraGroups = [ "networkmanager" "wheel" "dialout" "qemu-libvirtd" "libvirtd"];
     packages = with pkgs; [
-      floorp-bin
+      floorp
     ];
   };
 

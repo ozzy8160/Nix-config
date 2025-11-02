@@ -19,6 +19,7 @@
       sftpman
       sshfs
       starship
+      tree
       wget
       tldr
       zip

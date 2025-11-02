@@ -26,6 +26,7 @@
       pavucontrol
       pulseaudio
       pipewire
+      qimgv
       wf-recorder
       waybar
       xclip
