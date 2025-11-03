@@ -39,5 +39,13 @@
         ];
       };
     };
+    nixosConfigurations = {
+      Bobby = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./Bobby/configuration.nix
+        ];
+      };
+    };
   };
 }
