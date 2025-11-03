@@ -9,7 +9,7 @@
 #      ./../../modules/vms.nix
     ];
 #  #power managament
-#  powerManagement.enable = true;
+#  powerManagement.enable = false;
 #  # Bootloader.
 #  boot.loader = {
 #    efi = { 
@@ -74,18 +74,18 @@
     LC_TIME = "en_US.UTF-8";
   };
   
-#  programs ={
-#    starship = {
-#      enable = true;
-#      # Configuration written to ~/.config/starship.toml
-#      settings = {
-#        add_newline = false;
-#      };
-#    };
-#    fuse = {
-#      userAllowOther = true;
-#    };
-#  };
+  programs ={
+    starship = {
+      enable = true;
+      # Configuration written to ~/.config/starship.toml
+      settings = {
+        add_newline = false;
+      };
+    };
+    fuse = {
+      userAllowOther = true;
+    };
+  };
   
 
   # Bootloader.
@@ -115,27 +115,27 @@
 
   
   # enable bluetooth
-#  hardware = {
-#    bluetooth = {
-#      enable = true;
-#      powerOnBoot = false; 
-#    };
-#    # enable opengl
-#    graphics = {
-#      enable = true;
-#    };
-#  };
-#  # Enable sound with pipewire.
-#  sound.enable = true;
-#  hardware.pulseaudio.enable = false;
-#  security.rtkit.enable = true;
-#  services.pipewire = {
-#    enable = true;
-#    alsa.enable = true;
-#    alsa.support32Bit = true;
-#    pulse.enable = true;
-#    # If you want to use JACK applications, uncomment this
-#    #jack.enable = true;
+  hardware = {
+    bluetooth = {
+      enable = true;
+      powerOnBoot = false; 
+    };
+    # enable opengl
+    graphics = {
+      enable = true;
+    };
+  };
+  # Enable sound with pipewire.
+  sound.enable = true;
+  hardware.pulseaudio.enable = false;
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    # If you want to use JACK applications, uncomment this
+    #jack.enable = true;
 
     # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
@@ -158,27 +158,41 @@
     mangohud
     neovim
   ];
+  # Enable the OpenSSH daemon.
+  services.openssh = {
+    enable = true;
+    settings = {
+      PasswordAuthentication = true;
+      AllowUsers = null;
+    };
+  };
+  # Open ports in the firewall.
+  networking.firewall = {
+    allowedTCPPorts = [ 21 22 8096 ];
+  };
+  # Or disable the firewall altogether.
+  networking.firewall.enable = true;
   # bash stuff here
-#  environment.pathsToLink = [ "/share/bash-completion" ];
-#  programs = {
-#    command-not-found.enable = false;
-#    bash = {
-#      completion.enable = true;
-#      shellAliases = {
-#        b = "cd ..";
-#      #	ls = "lsd";
-#      	# Search command line history
-#      	h = "history | rp ";
-#        #vim
-#        v = "nvim";
-#        sv = "sudo nvim";
-#      #	rebuild = "sudo nixos-rebuild switch --flake $(readlink -f /home/ryan/.dotfiles/flakes)";
-#        updt = "sudo nix flake update && sudo nixos-rebuild switch";
-#        #git
-#        add = "git add ."; 
-#      };
-#    };
-#  };
+  environment.pathsToLink = [ "/share/bash-completion" ];
+  programs = {
+    command-not-found.enable = false;
+    bash = {
+      completion.enable = true;
+      shellAliases = {
+        b = "cd ..";
+      #	ls = "lsd";
+      	# Search command line history
+      	h = "history | rp ";
+        #vim
+        v = "nvim";
+        sv = "sudo nvim";
+      #	rebuild = "sudo nixos-rebuild switch --flake $(readlink -f /home/ryan/.dotfiles/flakes)";
+        updt = "sudo nix flake update && sudo nixos-rebuild switch";
+        #git
+        add = "git add ."; 
+      };
+    };
+  };
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
