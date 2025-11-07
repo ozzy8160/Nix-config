@@ -10,7 +10,7 @@
       font-manager
       font-awesome_5
       font-awesome
-      noto-fonts-emoji
+      noto-fonts-color-emoji
       noto-fonts
       jetbrains-mono
       powerline-fonts

@@ -7,6 +7,7 @@
       ./../modules/cli.nix
       ./../modules/hyprland.nix
       ./../modules/vms.nix
+      ./../modules/gaming.nix
     ];
   #power managament
   powerManagement.enable = true;

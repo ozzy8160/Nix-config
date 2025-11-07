@@ -3,23 +3,23 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-#      ./../../terminal/fonts.nix
-#      ./../../modules/cli.nix
+      ./../../terminal/fonts.nix
+      ./../../modules/cli.nix
 #      ./../../modules/hyprland.nix
 #      ./../../modules/vms.nix
     ];
 #  #power managament
-#  powerManagement.enable = false;
-#  # Bootloader.
-#  boot.loader = {
-#    efi = { 
-#      canTouchEfiVariables = true;
-#    };
-#    systemd-boot = {
-#      enable = true;
-#      configurationLimit = 10;
-#    };
-#  };
+  powerManagement.enable = false;
+  # Bootloader.
+  boot.loader = {
+    efi = { 
+      canTouchEfiVariables = true;
+    };
+    systemd-boot = {
+      enable = true;
+      configurationLimit = 10;
+    };
+  };
   programs = {
     steam = {
       enable = true;
@@ -115,16 +115,16 @@
 
   
   # enable bluetooth
-  hardware = {
-    bluetooth = {
-      enable = true;
-      powerOnBoot = false; 
-    };
-    # enable opengl
-    graphics = {
-      enable = true;
-    };
-  };
+  #  hardware = {
+  #    bluetooth = {
+  #      enable = true;
+  #      powerOnBoot = false; 
+  #    };
+  #    # enable opengl
+  #    graphics = {
+  #      enable = true;
+  #    };
+  #  };
   # Enable sound with pipewire.
   sound.enable = true;
   hardware.pulseaudio.enable = false;
@@ -140,7 +140,7 @@
     # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
     #media-session.enable = true;
-#  };
+  };
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.ryan = {
     isNormalUser = true;
@@ -151,12 +151,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    fastfetch
-    git
-    btop
-    kitty
     mangohud
-    neovim
   ];
   # Enable the OpenSSH daemon.
   services.openssh = {
@@ -168,7 +163,7 @@
   };
   # Open ports in the firewall.
   networking.firewall = {
-    allowedTCPPorts = [ 21 22 8096 ];
+    allowedTCPPorts = [ 21 22 ];
   };
   # Or disable the firewall altogether.
   networking.firewall.enable = true;
