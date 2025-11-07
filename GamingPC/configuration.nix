@@ -3,8 +3,8 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./../../terminal/fonts.nix
-      ./../../modules/cli.nix
+      ./../modules/fonts.nix
+      ./../modules/cli.nix
 #      ./../../modules/hyprland.nix
 #      ./../../modules/vms.nix
     ];
