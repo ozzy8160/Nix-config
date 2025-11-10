@@ -3,6 +3,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./../modules/common.nix
       ./../modules/fonts.nix
       ./../modules/cli.nix
       ./../modules/hyprland.nix
@@ -21,23 +22,6 @@
       configurationLimit = 10;
     };
   };
-  #auto
-  nix = {
-    settings = {
-      auto-optimise-store = true;
-      # enable flakes
-      experimental-features = [ "nix-command" "flakes" ];
-    };
-    #garbage collection
-    gc = {
-      automatic = true;
-      options = "--delete-older-than 30d";
-    };
-  };
-  #kernel version
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
   # Enable networking and set host name
   networking = {
     hostName = "LT1";
@@ -45,24 +29,6 @@
       enable = true;
     };
   };
-
-  # Set your time zone.
-  time.timeZone = "America/New_York";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_US.UTF-8";
-    LC_IDENTIFICATION = "en_US.UTF-8";
-    LC_MEASUREMENT = "en_US.UTF-8";
-    LC_MONETARY = "en_US.UTF-8";
-    LC_NAME = "en_US.UTF-8";
-    LC_NUMERIC = "en_US.UTF-8";
-    LC_PAPER = "en_US.UTF-8";
-    LC_TELEPHONE = "en_US.UTF-8";
-    LC_TIME = "en_US.UTF-8";
-  };
-  
   programs ={
     starship = {
       enable = true;
@@ -115,7 +81,6 @@
     # no need to redefine it in your config for now)
     #media-session.enable = true;
 #  };
-  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.ryan = {
     isNormalUser = true;
     description = "ryan";
@@ -124,7 +89,6 @@
       floorp-bin
     ];
   };
-
   environment.systemPackages = with pkgs; [
     kitty
     mpd

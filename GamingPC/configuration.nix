@@ -8,6 +8,14 @@
 #      ./../../modules/hyprland.nix
 #      ./../../modules/vms.nix
     ];
+  #set env variables 
+  environment.sessionVariables = {
+    XDG_CONFIG_HOME = "${config.users.users.$USER.home}/.config";
+  };
+ # Symlink your repo to ~/.config/nvim
+  systemd.tmpfiles.rules = [
+    "l ${config.users.users.$USER.home}/.config/myconfig - $USER users - ${inputs.nvim-config}"
+  ];
 #  #power managament
   powerManagement.enable = false;
   # Bootloader.
@@ -163,7 +171,7 @@
   };
   # Open ports in the firewall.
   networking.firewall = {
-    allowedTCPPorts = [ 21 22 ];
+    allowedTCPPorts = [ 22 ];
   };
   # Or disable the firewall altogether.
   networking.firewall.enable = true;
