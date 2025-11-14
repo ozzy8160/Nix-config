@@ -4,19 +4,14 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./../modules/fonts.nix
+      ./../modules/common.nix
       ./../modules/cli.nix
+      ./../modules/nvim.nix
+      ./../modules/gaming.nix
 #      ./../../modules/hyprland.nix
 #      ./../../modules/vms.nix
     ];
-  #set env variables 
-  environment.sessionVariables = {
-    XDG_CONFIG_HOME = "${config.users.users.$USER.home}/.config";
-  };
- # Symlink your repo to ~/.config/nvim
-  systemd.tmpfiles.rules = [
-    "l ${config.users.users.$USER.home}/.config/myconfig - $USER users - ${inputs.nvim-config}"
-  ];
-#  #power managament
+  #power managament
   powerManagement.enable = false;
   # Bootloader.
   boot.loader = {
@@ -26,31 +21,6 @@
     systemd-boot = {
       enable = true;
       configurationLimit = 10;
-    };
-  };
-  programs = {
-    steam = {
-      enable = true;
-      remotePlay.openFirewall = true;
-    };
-    gamemode.enable = true;
-#    sunshine.enable = true;
-    corectrl = {
-      enable = true;
-      gpuOverclock.enable = true;
-    };
-  };
-  #auto
-  nix = {
-    settings = {
-      auto-optimise-store = true;
-      # enable flakes
-      experimental-features = [ "nix-command" "flakes" ];
-    };
-    #garbage collection
-    gc = {
-      automatic = true;
-      options = "--delete-older-than 10d";
     };
   };
   #kernel version
@@ -65,23 +35,6 @@
     };
   };
 
-  # Set your time zone.
-  time.timeZone = "America/New_York";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_US.UTF-8";
-    LC_IDENTIFICATION = "en_US.UTF-8";
-    LC_MEASUREMENT = "en_US.UTF-8";
-    LC_MONETARY = "en_US.UTF-8";
-    LC_NAME = "en_US.UTF-8";
-    LC_NUMERIC = "en_US.UTF-8";
-    LC_PAPER = "en_US.UTF-8";
-    LC_TELEPHONE = "en_US.UTF-8";
-    LC_TIME = "en_US.UTF-8";
-  };
-  
   programs ={
     starship = {
       enable = true;
@@ -97,9 +50,9 @@
   
 
   # Bootloader.
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/nvme0n1";
-  boot.loader.grub.useOSProber = true;
+  #  boot.loader.grub.enable = true;
+  #  boot.loader.grub.device = "/dev/nvme0n1";
+  #  boot.loader.grub.useOSProber = true;
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable; # Same as production
   # Enable automatic login for the user.
   services.xserver.displayManager.autoLogin.enable = true;
@@ -159,7 +112,6 @@
   };
 
   environment.systemPackages = with pkgs; [
-    mangohud
   ];
   # Enable the OpenSSH daemon.
   services.openssh = {
