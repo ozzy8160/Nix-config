@@ -1,18 +1,23 @@
 { config, pkgs, inputs, lib, ... }:
   let
-    nvimConfigTarget = "${config.ussers.users."$USER".home}/.config/nvim-config";
+    nvimConfigTarget = "${config.users.users."$USER".home}/.config/nvim-config";
     nvimConfigSource = inputs.nvim-config;
+    HOME = "${config.users.users.ryan.home}";
   in
 {
- 
   system.activationScripts.linkNvimConfig = lib.mkForce {
     deps = [ "users" ];
     text = ''
-      echo "checking for nvim config..."
-      if [ -d "/home/"$USER"/.config/nvim-config" ]; then
-        echo "Unlinking nvim-config" && unlink "/home/"$USER"/.config/nvim-config"
+      echo "Checking for existing nvim-config..."
+      if [ -d "${HOME}"/.config/nvim-config ]; then
+        echo "Unlinking existing nvim-config"
+        unlink  "${HOME}"/.config/nvim-config
+        echo "Updating Neovim config symlink from ${nvimConfigSource} to ${nvimConfigTarget}"
+        ln -sf "${nvimConfigSource}" "${nvimConfigTarget}"
       else
-        echo "Updating Neovim config symlink from ${nvimConfigSource} to ${nvimConfigTarget}" && ln -sf "${nvimConfigSource}" "${nvimConfigTarget}"
+        echo "creating Neovim config symlink from ${nvimConfigSource} to ${nvimConfigTarget}"
+        ln -sf "${nvimConfigSource}" "${nvimConfigTarget}"
+      fi
       '';
   };
   #set env variables 
