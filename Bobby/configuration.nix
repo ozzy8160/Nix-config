@@ -1,11 +1,11 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, inputs, lib, ... }:
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./../modules/fonts.nix
       ./../modules/common.nix 
-      ./../modules/nvim.nix 
+#      ./../modules/nvim.nix 
       ./../modules/cli.nix 
     ];
   #power managament
@@ -20,15 +20,18 @@
       configurationLimit = 10;
     };
   };
+  boot.kernelParams = [
+    "quiet"
+    "splash"
+  ];
+  services.printing.enable = true;
   #kernel version
   boot.kernelPackages = pkgs.linuxPackages_latest;
   networking.hostName = "bobby"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   # Enable networking
   networking.networkmanager.enable = true;
-  # Enable sound with pipewire.
-  sound.enable = true;
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -44,24 +47,33 @@
       chromium
     ];
   };
-  services = {
-    printing.enable = true;
-    xserver = {
-      enable = true;
-      layout = "us";
-      xkbVariant = ""
-      desktopManager.plasma5.enable = true;
-      displayManager = {
-        sddm.enable = true;
-        autoLogin = {
-          enable = true;
-          user = "bobby";
-        };
-      };
-    };
-  };
+  services.xserver.enable = true;
+  services.desktopManager.plasma6.enable = true;
+  services.displayManager.sddm.enable = true;
+  services.displayManager.autoLogin.enable = true;
+  services.displayManager.autoLogin.user = "bobby";
+#  services = {
+#   printing = {
+#      enable = true;
+#    };
+#    xserver = {
+#      enable = true;
+#      layout = "us";
+#      desktopManager.plasma5.enable = true;
+#      displayManager = {
+#        sddm = {
+#	   enable = true;
+#	 };
+#        autoLogin = {
+#          enable = true;
+#          user = "bobby";
+#        };
+#      };
+#    };
+#  };
   # List packages installed in system profile. To search, run:
   environment.systemPackages = with pkgs; [
+    kitty
   ];
   # Or disable the firewall altogether.
   networking.firewall.enable = true;
