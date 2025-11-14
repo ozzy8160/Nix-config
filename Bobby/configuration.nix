@@ -1,11 +1,14 @@
 { config, pkgs, inputs, lib, ... }:
+let
+  USER = bobby;
+in
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./../modules/fonts.nix
       ./../modules/common.nix 
-#      ./../modules/nvim.nix 
+      ./../modules/nvim.nix 
       ./../modules/cli.nix 
     ];
   #power managament
@@ -27,7 +30,7 @@
   services.printing.enable = true;
   #kernel version
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  networking.hostName = "bobby"; # Define your hostname.
+  networking.hostName = "${USER}"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   # Enable networking
   networking.networkmanager.enable = true;
@@ -41,7 +44,7 @@
   };
   users.users.bobby = {
     isNormalUser = true;
-    description = "bobby";
+    description = "${USER}";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       chromium
@@ -51,7 +54,7 @@
   services.desktopManager.plasma6.enable = true;
   services.displayManager.sddm.enable = true;
   services.displayManager.autoLogin.enable = true;
-  services.displayManager.autoLogin.user = "bobby";
+  services.displayManager.autoLogin.user = "${USER}"
 #  services = {
 #   printing = {
 #      enable = true;
