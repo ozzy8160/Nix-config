@@ -1,8 +1,8 @@
-{ config, pkgs, inputs, lib, ... }:
+{ config, pkgs, inputs, lib, USER, ... }:
   let
-    nvimConfigTarget = "${config.users.users."$USER".home}/.config/nvim-config";
+    nvimConfigTarget = "${config.users.users.${USER}.home}/.config/nvim-config";
     nvimConfigSource = inputs.nvim-config;
-    HOME = "${config.users.users.ryan.home}";
+    HOME = "${config.users.users.${USER}.home}";
   in
 {
   system.activationScripts.linkNvimConfig = lib.mkForce {
@@ -22,7 +22,7 @@
   };
   #set env variables 
   environment.sessionVariables = {
-    XDG_CONFIG_HOME = "${config.users.users."$USER".home}/.config";
+    XDG_CONFIG_HOME = "${config.users.users.${USER}.home}/.config";
     NVIM_APPNAME = "nvim-config";
   };
 }

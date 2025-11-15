@@ -1,6 +1,6 @@
 { config, pkgs, inputs, lib, ... }:
 let
-  USER = bobby;
+  USER = "bobby";
 in
 {
   imports =
@@ -8,7 +8,13 @@ in
       ./hardware-configuration.nix
       ./../modules/fonts.nix
       ./../modules/common.nix 
-      ./../modules/nvim.nix 
+      (import ./../modules/nvim.nix {
+         USER = "bobby";
+         inherit config;
+         inherit pkgs;
+         inherit inputs;
+         inherit lib;
+      })
       ./../modules/cli.nix 
     ];
   #power managament
@@ -54,7 +60,7 @@ in
   services.desktopManager.plasma6.enable = true;
   services.displayManager.sddm.enable = true;
   services.displayManager.autoLogin.enable = true;
-  services.displayManager.autoLogin.user = "${USER}"
+  services.displayManager.autoLogin.user = "${USER}";
 #  services = {
 #   printing = {
 #      enable = true;
