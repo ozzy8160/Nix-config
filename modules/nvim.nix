@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, lib, USER, ... }:
+{ config, inputs, lib, USER, ... }:
   let
     nvimConfigTarget = "${config.users.users.${USER}.home}/.config/nvim-config";
     nvimConfigSource = inputs.nvim-config;

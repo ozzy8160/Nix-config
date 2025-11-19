@@ -21,7 +21,6 @@
         specialArgs = inputs;
         modules = [
           ./configuration.nix
-          ./modules/nvim.nix
         ];
       };
     };
@@ -40,7 +39,6 @@
         specialArgs = inputs;
         modules = [
           ./LT2/configuration.nix
-          ./modules/nvim.nix
         ];
       };
     };
@@ -50,7 +48,6 @@
         specialArgs = inputs;
         modules = [
           ./GamingPC/configuration.nix
-          ./modules/nvim.nix
         ];
       };
     };
@@ -60,7 +57,15 @@
         specialArgs = inputs;
         modules = [
           ./Bobby/configuration.nix
-          ./modules/nvim.nix
+        ];
+      };
+    };
+    nixosConfigurations = {
+      nixos-file-server = nixpkgs.lib.nixosSystem {
+        system = "${system}";
+        specialArgs = inputs;
+        modules = [
+          ./nixos-file-server/configuration.nix
         ];
       };
     };

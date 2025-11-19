@@ -1,9 +1,23 @@
-{ config, pkgs, inputs, ... }:
+{ pkgs, ... }:
   {
+    # startship
+    programs.starship = {
+      enable = true;
+     # Configuration written to ~/.config/starship.toml
+      settings = {
+        add_newline = false;
+      };
+      #needed for ssftp to mount to fs
+      fuse = {
+        userAllowOther = true;
+      };
+    };
     environment.systemPackages = with pkgs; [
       bash-completion
       bat
       btop
+      ctop
+      dysk
       fastfetch
       fd
       ffmpeg
@@ -11,8 +25,10 @@
       gcc
       git
       jq
+      lazydocker
       lazygit
       lsd
+      ncdu
       neovim
       rclone
       ripgrep
@@ -22,6 +38,7 @@
       tree
       wget
       tldr
+      tmux
       zip
       zoxide
     ];

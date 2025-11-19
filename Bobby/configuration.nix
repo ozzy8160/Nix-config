@@ -9,7 +9,7 @@ in
       ./../modules/fonts.nix
       ./../modules/common.nix 
       (import ./../modules/nvim.nix {
-         USER = "bobby";
+         inherit USER;
          inherit config;
          inherit pkgs;
          inherit inputs;

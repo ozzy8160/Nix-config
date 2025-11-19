@@ -34,26 +34,11 @@
       enable = true;
     };
   };
-
-  programs ={
-    starship = {
-      enable = true;
-      # Configuration written to ~/.config/starship.toml
-      settings = {
-        add_newline = false;
-      };
-    };
-    fuse = {
-      userAllowOther = true;
-    };
-  };
-  
-
   # Bootloader.
   #  boot.loader.grub.enable = true;
   #  boot.loader.grub.device = "/dev/nvme0n1";
   #  boot.loader.grub.useOSProber = true;
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable; # Same as production
+  #hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable; # Same as production
   # Enable automatic login for the user.
   services.xserver.displayManager.autoLogin.enable = true;
   services.xserver.displayManager.autoLogin.user = "ryan";

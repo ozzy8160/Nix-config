@@ -1,8 +1,13 @@
 # common apps and settings across all machines
-{ config, pkgs, inputs, ... }:
+{  pkgs, ... }:
   {
+    services.fstrim.enable = true;
+    #install latest kernel
+    boot.kernelPackages = pkgs.linuxPackages_latest;
     nix = {
       settings = {
+        #increase download buffer
+        download-buffer-size = 524288000;
         auto-optimise-store = true;
         # enable flakes
         experimental-features = [ "nix-command" "flakes" ];
