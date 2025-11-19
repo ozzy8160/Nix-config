@@ -8,6 +8,7 @@
       ./../modules/cli.nix
       ./../modules/nas.nix
       ./../modules/podman.nix
+      ./../modules/vert.nix
     ];
 
   # Bootloader.
