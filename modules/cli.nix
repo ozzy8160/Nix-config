@@ -1,13 +1,14 @@
 { pkgs, ... }:
   {
     # startship
-    programs.starship = {
-      enable = true;
-     # Configuration written to ~/.config/starship.toml
-      settings = {
-        add_newline = false;
+    programs ={
+      starship = {
+        enable = true;
+        # Configuration written to ~/.config/starship.toml
+        settings = {
+          add_newline = false;
+        };
       };
-      #needed for ssftp to mount to fs
       fuse = {
         userAllowOther = true;
       };
