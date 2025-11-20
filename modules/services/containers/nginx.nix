@@ -2,7 +2,19 @@
 {
   # Enable the OCI containers backend (Podman)
   virtualisation.oci-containers.backend = "podman";
-
+  users.users.mysql = {
+    isSystemUser = true;
+    group = "mysql";
+    # You can specify a UID if you need a static one across different machines
+    # uid = 200; 
+  };
+  systemd.tmpfiles.settings = {
+    "d /var/lib/mysql 0700 mysql mysql - -" = {};
+  };
+users.groups.mysql = {
+  # You can specify a GID if you need a static one
+  # gid = 200;
+};
   # Define the services
   virtualisation.oci-containers.containers = {
 
@@ -10,13 +22,13 @@
     mariadb = {
       image = "lscr.io/linuxserver/mariadb:latest"; # Or a specific version
       environment = {
-        MYSQL_ROOT_PASSWORD = "your_strong_root_password";
+        MYSQL_ROOT_PASSWORD = "sabbath2";
         MYSQL_DATABASE = "nginx_proxy_manager";
         MYSQL_USER = "npm_user";
-        MYSQL_PASSWORD = "boomgoesthedynamite";
+        MYSQL_PASSWORD = "sabbath2";
       };
       volumes = [
-        "/var/lib/mysql:/var/lib/mysql" # Mount a volume for persistent data
+        "/var/lib/mysql:/var/lib/mysql:z" # Mount a volume for persistent data
       ];
       # Set up port for internal container communication (optional if using internal network)
       # ports = [ "3306:3306" ];
@@ -35,12 +47,12 @@
         DB_MYSQL_HOST = "mariadb"; # The hostname matches the container name
         DB_MYSQL_PORT = "3306";
         DB_MYSQL_USER = "npm_user";
-        DB_MYSQL_PASSWORD = "boomgoesthedynamite";
+        DB_MYSQL_PASSWORD = "sabbath2";
         DB_MYSQL_NAME = "nginx_proxy_manager";
       };
       volumes = [
-        "/var/lib/nginx-proxy-manager/data:/data"
-        "/var/lib/nginx-proxy-manager/ssl:/etc/letsencrypt"
+        "/var/lib/nginx-proxy-manager/data:/data:z"
+        "/var/lib/nginx-proxy-manager/ssl:/etc/letsencrypt:z"
       ];
       autoStart = true;
       dependsOn = [ "mariadb" ]; # Ensure the database starts first

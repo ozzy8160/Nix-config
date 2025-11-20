@@ -80,11 +80,11 @@
      enable = true;
      enableSSHSupport = true;
    };
-  #jellyfin
-  services.jellyfin = {
-  enable = true;
-  openFirewall = true;
-  };
+  #  #jellyfin
+  #  services.jellyfin = {
+  #  enable = true;
+  #  openFirewall = true;
+  #  };
   # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;
