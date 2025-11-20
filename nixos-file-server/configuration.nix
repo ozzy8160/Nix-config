@@ -4,11 +4,10 @@
     [
       ./hardware-configuration.nix
       ./../modules/common.nix
-      ./../modules/fonts.nix
-      ./../modules/cli.nix
+      ./../modules/terminal
       ./../modules/nas.nix
-      ./../modules/podman.nix
-      ./../modules/vert.nix
+      ./../modules/services/podman.nix
+      ./../modules/services/containers
     ];
 
   # Bootloader.

@@ -1,13 +1,12 @@
 { config, pkgs, inputs, ... }:
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [ 
       ./hardware-configuration.nix
       ./../modules/common.nix
-      ./../modules/fonts.nix
-      ./../modules/cli.nix
+      ./../modules/terminal
       ./../modules/hyprland.nix
-      ./../modules/vms.nix
+      ./../modules/services/vms.nix
       ./../modules/gaming.nix
     ];
   #power managament
