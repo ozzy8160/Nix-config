@@ -63,16 +63,12 @@
     nixosConfigurations = {
       nixos-file-server = nixpkgs.lib.nixosSystem {
         system = "${system}";
-        specialArgs = inputs;
+        specialArgs = {
+          inherit inputs;
+        };
         modules = [
           ./nixos-file-server/configuration.nix
-          (import ./modules/terminal/nvim.nix {
-            USER = "ryan";
-            inherit inputs;             
-            inherit config;
-            inherit lib;
-            inherit pkgs;
-          )}
+
         ];
       };
     };

@@ -1,6 +1,6 @@
-{ config, inputs, lib, USER, ... }:
+{ config, pkgs, inputs, lib, USER, ... }:
   let
-    nvimConfigTarget = "${config.users.users.${USER}.home}/.config/nvim-config";
+    nvimConfigTarget = "${config.users.users.${USER}.home}/.config/nvim";
     nvimConfigSource = inputs.nvim-config;
     HOME = "${config.users.users.${USER}.home}";
   in
@@ -9,9 +9,9 @@
     deps = [ "users" ];
     text = ''
       echo "Checking for existing nvim-config..."
-      if [ -d "${HOME}"/.config/nvim-config ]; then
-        echo "Unlinking existing nvim-config"
-        unlink  "${HOME}"/.config/nvim-config
+      if [ -d "${HOME}"/.config/nvim ]; then
+        echo "Unlinking existing nvim"
+        unlink  "${HOME}"/.config/nvim
         echo "Updating Neovim config symlink from ${nvimConfigSource} to ${nvimConfigTarget}"
         ln -sf "${nvimConfigSource}" "${nvimConfigTarget}"
       else
@@ -23,6 +23,6 @@
   #set env variables 
   environment.sessionVariables = {
     XDG_CONFIG_HOME = "${config.users.users.${USER}.home}/.config";
-    NVIM_APPNAME = "nvim-config";
+    NVIM_APPNAME = "nvim";
   };
 }
