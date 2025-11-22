@@ -1,6 +1,6 @@
 {
   imports = [
     ./vert.nix
-    ./nginx.nix
+    ./nginx2.nix
   ];
 }
