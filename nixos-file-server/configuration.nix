@@ -114,7 +114,7 @@
   };
   # Open ports in the firewall.
   networking.firewall = {
-    allowedTCPPorts = [ 21 22 8096 ];
+    allowedTCPPorts = [ 21 22 80 81 443 8096 ];
     allowedTCPPortRanges = [ { from = 56250; to = 56250;} ];
     connectionTrackingModules = [ "ftp" ];
   };
