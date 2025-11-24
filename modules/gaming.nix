@@ -8,13 +8,10 @@
       };
       gamemode.enable = true;
 #      sunshine.enable = true;
-      corectrl = {
-        enable = true;
-        gpuOverclock.enable = true;
-      };
     };
     environment.systemPackages = with pkgs; [
       dsda-doom
       mangohud
     ];
+  hardware.amdgpu.overdrive.enable = true;
 }

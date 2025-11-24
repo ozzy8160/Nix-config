@@ -31,9 +31,9 @@
     };
   };
   # Bootloader.
-  #  boot.loader.grub.enable = true;
-  #  boot.loader.grub.device = "/dev/nvme0n1";
-  #  boot.loader.grub.useOSProber = true;
+    boot.loader.grub.enable = true;
+    boot.loader.grub.device = "/dev/nvme0n1";
+    boot.loader.grub.useOSProber = true;
   #hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable; # Same as production
   # Enable automatic login for the user.
   #  services.xserver.displayManager.autoLogin.enable = true;
@@ -48,9 +48,11 @@
 
   # Configure keymap in X11
   services.xserver = {
-    layout = "us";
-    xkbVariant = "";
+    xkb = {
+      layout = "us";
+      Variant = "";
     };
+  };
   
   #  nixpkgs.config.packageOverrides = pkgs: {
   #    intel-vaapi-driver = pkgs.intel-vaapi-driver.override { enableHybridCodec = true; };
@@ -68,7 +70,7 @@
   #    };
   #  };
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
