@@ -3,10 +3,8 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./../modules/fonts.nix
+      ./../modules/terminal
       ./../modules/common.nix
-      ./../modules/cli.nix
-      ./../modules/nvim.nix
       ./../modules/gaming.nix
 #      ./../../modules/hyprland.nix
 #      ./../../modules/vms.nix
@@ -14,17 +12,15 @@
   #power managament
   powerManagement.enable = false;
   # Bootloader.
-  boot.loader = {
-    efi = { 
-      canTouchEfiVariables = true;
-    };
-    systemd-boot = {
-      enable = true;
-      configurationLimit = 10;
-    };
-  };
-  #kernel version
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  #  boot.loader = {
+  #    efi = { 
+  #      canTouchEfiVariables = true;
+  #    };
+  #    systemd-boot = {
+  #      enable = true;
+  #      configurationLimit = 10;
+  #    };
+  #  };
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
   # Enable networking and set host name
@@ -40,15 +36,15 @@
   #  boot.loader.grub.useOSProber = true;
   #hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable; # Same as production
   # Enable automatic login for the user.
-  services.xserver.displayManager.autoLogin.enable = true;
-  services.xserver.displayManager.autoLogin.user = "ryan";
+  #  services.xserver.displayManager.autoLogin.enable = true;
+  #  services.xserver.displayManager.autoLogin.user = "ryan";
 
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
+  #  services.xserver.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
+  #  services.xserver.displayManager.sddm.enable = true;
+  #  services.xserver.desktopManager.plasma5.enable = true;
 
   # Configure keymap in X11
   services.xserver = {
@@ -72,7 +68,6 @@
   #    };
   #  };
   # Enable sound with pipewire.
-  sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
