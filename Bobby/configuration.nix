@@ -9,7 +9,7 @@ in
       ./../modules/fonts.nix
       ./../modules/common.nix 
       (import ./../modules/nvim.nix {
-         inherit USER;
+         USER = "${USER}";
          inherit config;
          inherit pkgs;
          inherit inputs;
@@ -73,52 +73,12 @@ in
   services.displayManager.sddm.enable = true;
   services.displayManager.autoLogin.enable = true;
   services.displayManager.autoLogin.user = "${USER}";
-#  services = {
-#   printing = {
-#      enable = true;
-#    };
-#    xserver = {
-#      enable = true;
-#      layout = "us";
-#      desktopManager.plasma5.enable = true;
-#      displayManager = {
-#        sddm = {
-#	   enable = true;
-#	 };
-#        autoLogin = {
-#          enable = true;
-#          user = "bobby";
-#        };
-#      };
-#    };
-#  };
   # List packages installed in system profile. To search, run:
   environment.systemPackages = with pkgs; [
     kitty
   ];
   # Or disable the firewall altogether.
   networking.firewall.enable = true;
-  # bash stuff here
-  environment.pathsToLink = [ "/share/bash-completion" ];
-  programs = {
-    command-not-found.enable = false;
-    bash = {
-      completion.enable = true;
-      shellAliases = {
-        b = "cd ..";
-      #	ls = "lsd";
-      	# Search command line history
-      	h = "history | rp ";
-        #vim
-        v = "nvim";
-        sv = "sudo nvim";
-      #	rebuild = "sudo nixos-rebuild switch --flake $(readlink -f /home/ryan/.dotfiles/flakes)";
-        updt = "sudo nix flake update && sudo nixos-rebuild switch";
-        #git
-        add = "git add ."; 
-      };
-    };
-  };
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave

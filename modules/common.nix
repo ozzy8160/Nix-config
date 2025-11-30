@@ -33,4 +33,25 @@
       LC_TELEPHONE = "en_US.UTF-8";
       LC_TIME = "en_US.UTF-8";
     };
+    # .bashrc
+    environment.pathsToLink = [ "/share/bash-completion" ];
+    programs = {
+      command-not-found.enable = false;
+      bash = {
+        completion.enable = true;
+        shellAliases = {
+          b = "cd ..";
+        #	ls = "lsd";
+          # Search command line history
+          h = "history | rp ";
+          #vim
+          v = "nvim";
+          sv = "sudo nvim";
+        #	rebuild = "sudo nixos-rebuild switch --flake $(readlink -f /home/ryan/.dotfiles/flakes)";
+          updt = "sudo nix flake update && sudo nixos-rebuild switch";
+          #git
+          add = "git add ."; 
+        };
+      };
+    };
   }

@@ -66,27 +66,6 @@
     mpv
     timeshift
   ];
-  # bash stuff here
-  environment.pathsToLink = [ "/share/bash-completion" ];
-  programs = {
-    command-not-found.enable = false;
-    bash = {
-      completion.enable = true;
-      shellAliases = {
-        b = "cd ..";
-      #	ls = "lsd";
-      	# Search command line history
-      	h = "history | rp ";
-        #vim
-        v = "nvim";
-        sv = "sudo nvim";
-      #	rebuild = "sudo nixos-rebuild switch --flake $(readlink -f /home/ryan/.dotfiles/flakes)";
-        updt = "sudo nix flake update && sudo nixos-rebuild switch";
-        #git
-        add = "git add ."; 
-      };
-    };
-  };
   #all services enable:
   services = {
     blueman = {
@@ -95,8 +74,17 @@
     getty = {
       autologinUser = "ryan";
     };
+    avahi = {
+      enable = true;
+      nssmdns4 = true;
+      openFirewall = true;
+    };
     printing = {
       enable = true;
+      drivers = with pkgs; [
+        cups-filters
+        cups-browsed
+      ];
     };
   };
   # Open ports in the firewall.

@@ -53,29 +53,6 @@
     jellyfin-web
     jellyfin-ffmpeg
   ];
-  # bash stuff here
-  programs = {
-    command-not-found.enable = false;
-    bash = {
-      completion.enable = true;
-      #set bash aliases here
-      shellAliases = {
-        b = "cd ..";
-      #	ls = "lsd";
-        sj = "ssh ryan@192.168.1.58";
-        # Search command line history
-        h = "history | grep ";
-        #vim
-        v = "nvim";
-        sv = "sudo nvim";
-        #nixos
-        rebuild = "sudo nixos-rebuild switch --flake $(readlink -f /etc/nixos/)";
-        updt = "cd /etc/nixos/ && sudo nix flake update";
-        #git
-        add = "git add ."; 
-      };
-    };
-  };
    programs.gnupg.agent = {
      enable = true;
      enableSSHSupport = true;
