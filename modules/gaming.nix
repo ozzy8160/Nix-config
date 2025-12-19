@@ -7,6 +7,7 @@
         remotePlay.openFirewall = true;
       };
       gamemode.enable = true;
+      corectrl.enable = true;
 #      sunshine.enable = true;
     };
     environment.systemPackages = with pkgs; [

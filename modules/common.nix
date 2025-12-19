@@ -37,6 +37,7 @@
     environment.pathsToLink = [ "/share/bash-completion" ];
     programs = {
       command-not-found.enable = false;
+      nix-index.enable = true;
       bash = {
         completion.enable = true;
         shellAliases = {

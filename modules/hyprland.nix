@@ -10,7 +10,9 @@
     environment.systemPackages = with pkgs; [
       blueman
       brightnessctl
+      delfin
       dunst
+      finamp
       grim
       hyprcursor
       hyprlock

@@ -6,16 +6,8 @@ in
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./../modules/fonts.nix
       ./../modules/common.nix 
-      (import ./../modules/nvim.nix {
-         USER = "${USER}";
-         inherit config;
-         inherit pkgs;
-         inherit inputs;
-         inherit lib;
-      })
-      ./../modules/cli.nix 
+      ./../modules/terminal
     ];
   #power managament
   powerManagement.enable = true;
@@ -26,7 +18,7 @@ in
     };
     systemd-boot = {
       enable = true;
-      configurationLimit = 10;
+      configurationLimit = 4;
     };
   };
   boot.kernelParams = [
@@ -47,7 +39,6 @@ in
     ];
   };
   #kernel version
-  boot.kernelPackages = pkgs.linuxPackages_latest;
   networking.hostName = "${USER}"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   # Enable networking
@@ -60,7 +51,7 @@ in
     alsa.support32Bit = true;
     pulse.enable = true;
   };
-  users.users.bobby = {
+  users.users."${USER}" = {
     isNormalUser = true;
     description = "${USER}";
     extraGroups = [ "networkmanager" "wheel" ];

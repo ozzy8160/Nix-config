@@ -55,7 +55,7 @@
   users.users.ryan = {
     isNormalUser = true;
     description = "ryan";
-    extraGroups = [ "networkmanager" "wheel" "dialout" "qemu-libvirtd" "libvirtd"];
+    extraGroups = [ "networkmanager" "wheel" "dialout" "qemu-libvirtd" "libvirtd" "corectrl" ];
     packages = with pkgs; [
       floorp-bin
     ];
