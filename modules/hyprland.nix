@@ -13,12 +13,14 @@
       delfin
       dunst
       finamp
+      gearlever
       grim
       hyprcursor
       hyprlock
       hypridle
       hyprpolkitagent
       kdePackages.kdenlive
+      nemo
       networkmanagerapplet
       pywal
       rofi

@@ -15,7 +15,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Enable networking and set host name
-  networking.networkmanager.enable = true;
+  networking.networkmanager.enable = false;
   networking.hostName = "nixos-file-server"; # Define your hostname.
 
   nixpkgs.config.packageOverrides = pkgs: {
