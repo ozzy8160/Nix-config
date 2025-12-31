@@ -6,6 +6,7 @@
       ./../modules/terminal
       ./../modules/common.nix
       ./../modules/gaming.nix
+      ./../modules/meida.nix
 #      ./../../modules/hyprland.nix
 #      ./../../modules/vms.nix
     ];

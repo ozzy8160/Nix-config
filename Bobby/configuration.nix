@@ -26,31 +26,37 @@ in
     "splash"
   ];
 
-  services.avahi = {
-    enable = true;
-    nssmdns4 = true;
-    openFirewall = true;
-  };
-  services.printing = {
-    enable = true;
-    drivers = with pkgs; [
-      cups-filters
-      cups-browsed
-    ];
+  services = {
+    avahi = {
+      enable = true;
+      nssmdns4 = true;
+      openFirewall = true;
+    };
+    printing = {
+      enable = true;
+      drivers = with pkgs; [
+        cups-filters
+        cups-browsed
+      ];
+    };
+    networkmanager = {
+      enable = true;
+    };
+    pulseaudio = {
+      enable = false;
+    };
+    pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+    };
   };
   #kernel version
   networking.hostName = "${USER}"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   # Enable networking
-  networking.networkmanager.enable = true;
-  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-  };
   users.users."${USER}" = {
     isNormalUser = true;
     description = "${USER}";
@@ -64,10 +70,6 @@ in
   services.displayManager.sddm.enable = true;
   services.displayManager.autoLogin.enable = true;
   services.displayManager.autoLogin.user = "${USER}";
-  # List packages installed in system profile. To search, run:
-  environment.systemPackages = with pkgs; [
-    kitty
-  ];
   # Or disable the firewall altogether.
   networking.firewall.enable = true;
   # This value determines the NixOS release from which the default

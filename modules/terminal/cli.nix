@@ -29,6 +29,7 @@
       lazydocker
       lazygit
       lsd
+      kitty
       ncdu
       neovim
       rclone

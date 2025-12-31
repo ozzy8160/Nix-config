@@ -1,7 +1,8 @@
-{  pkgs, ... }:
+{  pkgs, chaotic-nyx, ... }:
   {
-  #hyprland
-
+    imports = [ 
+      chaotic-nyx.nixosModules.default 
+    ];
     programs.hyprland = {
       enable = true;
       xwayland.enable = true;
@@ -10,9 +11,8 @@
     environment.systemPackages = with pkgs; [
       blueman
       brightnessctl
-      delfin
       dunst
-      finamp
+      firedragon-bin
       gearlever
       grim
       hyprcursor
@@ -24,6 +24,7 @@
       networkmanagerapplet
       pywal
       rofi
+      searxng
       slurp
       swww
       sway

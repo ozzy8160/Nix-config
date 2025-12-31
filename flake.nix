@@ -9,8 +9,11 @@
       url = "github:ozzy8160/neovim-config";
       flake = false;
     };
+    chaotic-nyx = {
+      url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+    };
   };
-  outputs = { self, nixpkgs, systems, nvim-config, ... }@ inputs:
+  outputs = { self, nixpkgs, systems, nvim-config, chaotic-nyx, ... }@ inputs:
   let
     system = "x86_64-linux";
   in
@@ -27,7 +30,7 @@
     nixosConfigurations = {
       LT1 = nixpkgs.lib.nixosSystem {
         system = "${system}";
-        specialArgs = inputs;
+        specialArgs = { inherit chaotic-nyx; };
         modules = [
           ./LT1/configuration.nix
         ];

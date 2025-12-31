@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, inputs, chaotic-nyx, ... }:
 {
   imports =
     [ 
@@ -8,6 +8,7 @@
       ./../modules/hyprland.nix
       ./../modules/services/vms.nix
       ./../modules/gaming.nix
+      ./../modules/media.nix
     ];
   #power managament
   powerManagement.enable = true;
@@ -61,9 +62,6 @@
     ];
   };
   environment.systemPackages = with pkgs; [
-    kitty
-    mpd
-    mpv
     timeshift
   ];
   #all services enable:
