@@ -5,5 +5,6 @@
       finamp
       mpd
       mpv
+      playerctl
     ];
 }

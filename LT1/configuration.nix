@@ -63,6 +63,7 @@
   };
   environment.systemPackages = with pkgs; [
     timeshift
+    nvtopPackages.intel
   ];
   #all services enable:
   services = {
