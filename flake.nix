@@ -33,6 +33,12 @@
         specialArgs = { inherit chaotic-nyx; };
         modules = [
           ./LT1/configuration.nix
+          ./../modules/common.nix
+          ./../modules/terminal
+          ./../modules/hyprland.nix
+          ./../modules/services/vms.nix
+          ./../modules/gaming.nix
+          ./../modules/media.nix
         ];
       };
     };
@@ -66,11 +72,15 @@
     nixosConfigurations = {
       nixos-file-server = nixpkgs.lib.nixosSystem {
         system = "${system}";
-        specialArgs = {
-          inherit inputs;
-        };
+        specialArgs = { inherit nvim-config; };
         modules = [
           ./nixos-file-server/configuration.nix
+          ./../modules/common.nix
+          ./../modules/terminal
+          ./../modules/terminal/nvim.nix
+          ./../modules/drives/vault3.nix
+          ./../modules/services/podman.nix
+          ./../modules/services/containers
 
         ];
       };

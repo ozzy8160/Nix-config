@@ -1,13 +1,9 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, inputs, nvim-config, ... }:
 {
   imports =
     [
       ./hardware-configuration.nix
-      ./../modules/common.nix
-      ./../modules/terminal
-      ./../modules/nas.nix
-      ./../modules/services/podman.nix
-      ./../modules/services/containers
+      nvim-config.nixosModules.default 
     ];
 
   # Bootloader.

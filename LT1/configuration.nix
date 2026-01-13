@@ -3,12 +3,6 @@
   imports =
     [ 
       ./hardware-configuration.nix
-      ./../modules/common.nix
-      ./../modules/terminal
-      ./../modules/hyprland.nix
-      ./../modules/services/vms.nix
-      ./../modules/gaming.nix
-      ./../modules/media.nix
     ];
   #power managament
   powerManagement.enable = true;
