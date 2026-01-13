@@ -1,9 +1,8 @@
-{ config, pkgs, inputs, nvim-config, ... }:
+{ config, pkgs, inputs, ... }:
 {
   imports =
     [
       ./hardware-configuration.nix
-      nvim-config.nixosModules.default 
     ];
 
   # Bootloader.

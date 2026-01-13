@@ -77,7 +77,6 @@
           ./nixos-file-server/configuration.nix
           ./../modules/common.nix
           ./../modules/terminal
-          ./../modules/terminal/nvim.nix
           ./../modules/drives/vault3.nix
           ./../modules/services/podman.nix
           ./../modules/services/containers
