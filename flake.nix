@@ -33,12 +33,12 @@
         specialArgs = { inherit chaotic-nyx; };
         modules = [
           ./LT1/configuration.nix
-          ./../modules/common.nix
-          ./../modules/terminal
-          ./../modules/hyprland.nix
-          ./../modules/services/vms.nix
-          ./../modules/gaming.nix
-          ./../modules/media.nix
+          ./modules/common.nix
+          ./modules/terminal
+          ./modules/hyprland.nix
+          ./modules/services/vms.nix
+          ./modules/gaming.nix
+          ./modules/media.nix
         ];
       };
     };
@@ -75,11 +75,11 @@
         specialArgs = { inherit nvim-config; };
         modules = [
           ./nixos-file-server/configuration.nix
-          ./../modules/common.nix
-          ./../modules/terminal
-          ./../modules/drives/vault3.nix
-          ./../modules/services/podman.nix
-          ./../modules/services/containers
+          ./modules/common.nix
+          ./modules/terminal
+          ./modules/drives/vault3.nix
+          ./modules/services/podman.nix
+          ./modules/services/containers
 
         ];
       };
