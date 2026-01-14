@@ -24,16 +24,12 @@
         intel-vaapi-driver # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
         libva-vdpau-driver
         intel-compute-runtime
-        # libvdpau-va-gl
-        intel-media-sdk # LIBVA_DRIVER_NAME=iHD
-        #vpl-gpu-rt
+        libvdpau-va-gl
+        vpl-gpu-rt
       ];
   };
   environment.sessionVariables = { LIBVA_DRIVER_NAME = "iHD";
   }; # Force intel-media-driver
-  nixpkgs.config.permittedInsecurePackages = [
-    "intel-media-sdk-23.2.2"
-  ];
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.ryan = {
     isNormalUser = true;
