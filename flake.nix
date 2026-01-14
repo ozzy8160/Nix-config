@@ -39,6 +39,7 @@
           ./modules/services/vms.nix
           ./modules/gaming.nix
           ./modules/media.nix
+          ./modules/hardware/gpu/igpu8.nix
         ];
       };
     };
@@ -80,7 +81,8 @@
           ./modules/drives/vault3.nix
           ./modules/services/podman.nix
           ./modules/services/containers
-
+          ./modules/hardware/gpu/igpu8.nix
+          ./modules/hardware/drives/vault3.nix
         ];
       };
     };
