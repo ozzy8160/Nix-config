@@ -13,25 +13,26 @@
   networking.networkmanager.enable = false;
   networking.hostName = "nixos-file-server"; # Define your hostname.
 
-  nixpkgs.config.packageOverrides = pkgs: {
-  intel-vaapi-driver = pkgs.intel-vaapi-driver.override { enableHybridCodec = true; };
-  };
-  # enable opengl
+  # nixpkgs.config.packageOverrides = pkgs: {
+  # intel-vaapi-driver = pkgs.intel-vaapi-driver.override { enableHybridCodec = true; };
+  # };
   hardware.graphics = {
       # Opengl
       enable = true;
       extraPackages = with pkgs; [
-      # intel-media-driver # LIBVA_DRIVER_NAME=iHD
-      #intel-vaapi-driver # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
-      # vaapiVdpau
-      #intel-compute-runtime
-      # libvdpau-va-gl
-      vpl-gpu-rt
-    ];
+        intel-media-driver # LIBVA_DRIVER_NAME=iHD
+        intel-vaapi-driver # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+        vaapiVdpau
+        intel-compute-runtime
+        # libvdpau-va-gl
+        intel-media-sdk # LIBVA_DRIVER_NAME=iHD
+        #vpl-gpu-rt
+      ];
   };
   environment.sessionVariables = { LIBVA_DRIVER_NAME = "iHD";
   }; # Force intel-media-driver
   # Define a user account. Don't forget to set a password with ‘passwd’.
+  users.users.jellyfin.extraGroups = [ "video" "render" ];
   users.users.ryan = {
     isNormalUser = true;
     description = "ryan";
