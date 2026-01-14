@@ -32,7 +32,6 @@
   environment.sessionVariables = { LIBVA_DRIVER_NAME = "iHD";
   }; # Force intel-media-driver
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.jellyfin.extraGroups = [ "video" "render" ];
   users.users.ryan = {
     isNormalUser = true;
     description = "ryan";
