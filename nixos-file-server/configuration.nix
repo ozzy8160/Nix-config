@@ -31,6 +31,9 @@
   };
   environment.sessionVariables = { LIBVA_DRIVER_NAME = "iHD";
   }; # Force intel-media-driver
+  nixpkgs.config.permittedInsecurePackages = [
+    "intel-media-sdk-23.2.2"
+  ];
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.ryan = {
     isNormalUser = true;
