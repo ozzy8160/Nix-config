@@ -44,6 +44,7 @@
           ./modules/gaming.nix
           ./modules/media.nix
           ./modules/hardware/gpu/igpu8.nix
+          ./modules/hardware/network_drives/vault3.nix
         ];
       };
     };
@@ -62,6 +63,11 @@
         specialArgs = inputs;
         modules = [
           ./hosts/GamingPC/configuration.nix
+          ./modules/hardware/network_drives/vault3.nix
+          ./modules/terminal
+          ./modules/common.nix
+          ./modules/gaming.nix
+          ./modules/media.nix
         ];
       };
     };

@@ -3,10 +3,6 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./../modules/terminal
-      ./../modules/common.nix
-      ./../modules/gaming.nix
-      ./../modules/meida.nix
 #      ./../../modules/hyprland.nix
 #      ./../../modules/vms.nix
     ];
