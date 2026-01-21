@@ -12,8 +12,12 @@
     chaotic-nyx = {
       url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
     };
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
-  outputs = { self, nixpkgs, systems, nvim-config, chaotic-nyx, ... }@ inputs:
+  outputs = { self, nixpkgs, systems, nvim-config, nixos-generators, chaotic-nyx, ... }@ inputs:
   let
     system = "x86_64-linux";
   in
@@ -32,7 +36,7 @@
         system = "${system}";
         specialArgs = { inherit chaotic-nyx; };
         modules = [
-          ./LT1/configuration.nix
+          ./hosts/LT1/configuration.nix
           ./modules/common.nix
           ./modules/terminal
           ./modules/hyprland.nix
@@ -48,7 +52,7 @@
         system = "${system}";
         specialArgs = inputs;
         modules = [
-          ./LT2/configuration.nix
+          ./hosts/LT2/configuration.nix
         ];
       };
     };
@@ -57,7 +61,7 @@
         system = "${system}";
         specialArgs = inputs;
         modules = [
-          ./GamingPC/configuration.nix
+          ./hosts/GamingPC/configuration.nix
         ];
       };
     };
@@ -66,7 +70,7 @@
         system = "${system}";
         specialArgs = inputs;
         modules = [
-          ./Bobby/configuration.nix
+          ./hosts/Bobby/configuration.nix
         ];
       };
     };
@@ -75,14 +79,27 @@
         system = "${system}";
         specialArgs = { inherit nvim-config; };
         modules = [
-          ./nixos-file-server/configuration.nix
+          ./hosts/nixos-file-server/configuration.nix
           ./modules/common.nix
           ./modules/terminal
-          ./modules/drives/vault3.nix
           ./modules/services/podman.nix
           ./modules/services/containers
           ./modules/hardware/gpu/igpu8.nix
-          ./modules/hardware/drives/vault3.nix
+        ];
+      };
+    };
+    nixosConfigurations = {
+      jellyfin3 = nixpkgs.lib.nixosSystem {
+        system = "${system}";
+        specialArgs = { inherit nvim-config; };
+        modules = [
+          ./vms/jellyfin3/configuration.nix
+          ./modules/common.nix
+          ./modules/terminal
+          ./modules/services/podman.nix
+          ./modules/services/containers/jellyfin.nix
+          ./modules/disko-config.nix
+          # ./modules/hardware/gpu/igpu8.nix
         ];
       };
     };

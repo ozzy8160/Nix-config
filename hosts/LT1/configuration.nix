@@ -1,5 +1,26 @@
 { config, pkgs, inputs, chaotic-nyx, ... }:
 {
+  fileSystems."/mnt/vault3" = {
+    device = "ryan@192.168.1.114:/mnt/vault3";
+    fsType = "fuse.sshfs";
+    options = [
+      "nodev"
+      "noatime"
+      "allow_other"
+      "_netdev"
+      "x-systemd.automount"
+      "nofail"
+      # Essential: Ensure the root user can read this file
+      "IdentityFile=/home/ryan/.ssh/id_ed25519"
+      # Optional but recommended for stable mounts
+      "reconnect"
+      "ServerAliveInterval=15"
+      "idmap=user"
+    ];
+  };
+  # Ensure the fuse module and sshfs are available
+  boot.supportedFilesystems = [ "fuse.sshfs" ];
+
   imports =
     [ 
       ./hardware-configuration.nix
@@ -26,27 +47,7 @@
   #  nixpkgs.config.packageOverrides = pkgs: {
   #    intel-vaapi-driver = pkgs.intel-vaapi-driver.override { enableHybridCodec = true; };
   #  };
-  
-  # enable bluetooth
-  hardware = {
-    bluetooth = {
-      enable = true;
-      powerOnBoot = false; 
-    };
-    # enable opengl
-    graphics = {
-      # Opengl
-      enable = true;
-      extraPackages = with pkgs; [
-      intel-media-driver # LIBVA_DRIVER_NAME=iHD
-      libva-vdpau-driver # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
-      intel-compute-runtime-legacy1
-      #intel-vaapi-driver # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
-      #libvdpau-va-gl
-      #vpl-gpu-rt
-      ];
-    };
-  };
+
   users.users.ryan = {
     isNormalUser = true;
     description = "ryan";
@@ -59,7 +60,6 @@
     timeshift
     nvtopPackages.intel
   ];
-  #all services enable:
   services = {
     blueman = {
       enable = true;
@@ -81,9 +81,9 @@
     };
   };
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
+   networking.firewall.allowedTCPPorts = [ 8096 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  networking.firewall.enable = true;
   system.stateVersion = "23.11"; # Did you read the comment?
 }
