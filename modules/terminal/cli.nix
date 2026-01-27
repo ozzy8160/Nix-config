@@ -42,6 +42,7 @@
       tldr
       tmux
       zip
+      unzip
       zoxide
     ];
   }
