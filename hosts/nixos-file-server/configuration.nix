@@ -35,7 +35,9 @@
     isNormalUser = true;
     description = "ryan";
     extraGroups = [ "networkmanager" "wheel" "podman" ];
-    openssh.authorizedKeys.keys = ["AAAAC3NzaC1lZDI1NTE5AAAAIL2hdyohgome0xN7k3IKGVxVvWtq1i8hKQ0QrqbWciHO"];
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILDarWWletcsNNavq9AQZr3I+3HE/6VaQlqPd0sdzSjG ryanpctech81@gmail.com" #GamingPC
+    ];
     packages = with pkgs; [
       floorp-bin
     ];
