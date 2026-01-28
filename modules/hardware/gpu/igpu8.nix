@@ -13,11 +13,13 @@
       extraPackages = with pkgs; [
       intel-media-driver # LIBVA_DRIVER_NAME=iHD
       libva-vdpau-driver # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
-      intel-compute-runtime-legacy1
+      intel-compute-runtime
       #intel-vaapi-driver # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
       #libvdpau-va-gl
       #vpl-gpu-rt #11th gen+
       ];
     };
   };
+  environment.sessionVariables = { LIBVA_DRIVER_NAME = "iHD";
+  }; # Force intel-media-driver
 }
