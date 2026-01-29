@@ -1,3 +1,4 @@
+{ disko, ... }:
 # USAGE in your configuration.nix.
 # Update devices to match your hardware.
 # {

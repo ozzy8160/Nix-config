@@ -1,6 +1,6 @@
 # This can be built with nixos-rebuild --flake .#myhost build
 {
-  description = "ryan's multi-host flake with custom neovim";
+  description = "ryan's multi-host flake with custom neovim, iso/qcow img generator w/disko";
   inputs = {
     nixpkgs = {
       url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -14,6 +14,10 @@
     };
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    disko = {
+      url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -91,6 +95,7 @@
           ./modules/services/podman.nix
           ./modules/services/containers
           ./modules/hardware/gpu/igpu8.nix
+          ./modules/hardware/drives/vault3.nix
         ];
       };
     };
@@ -106,8 +111,25 @@
           ./modules/services/containers/jellyfin.nix
           ./modules/disko-config.nix
           # ./modules/hardware/gpu/igpu8.nix
+          # inputs.disko.nixosModules.disko
         ];
       };
     };
-  };
+      packages.x86_64-linux = {
+        iso = nixos-generators.nixosGenerate {
+          system = "${system}";
+          modules = [
+            ./vms/jellyfin3/configuration.nix
+          ];
+          format = "iso";
+        };
+        qcow = nixos-generators.nixosGenerate {
+          system = "${system}";
+          modules = [
+            ./vms/jellyfin3/configuration.nix
+          ];
+          format = "qcow";
+        };
+      };
+    };
 }
