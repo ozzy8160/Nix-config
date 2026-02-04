@@ -1,8 +1,5 @@
-{  pkgs, chaotic-nyx, ... }:
+{  pkgs, ... }:
   {
-    imports = [ 
-      chaotic-nyx.nixosModules.default 
-    ];
     programs.hyprland = {
       enable = true;
       xwayland.enable = true;
@@ -12,7 +9,6 @@
       blueman
       brightnessctl
       dunst
-      firedragon-bin
       gearlever
       grim
       hyprcursor

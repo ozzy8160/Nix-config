@@ -1,30 +1,17 @@
-{ config, pkgs, inputs, chaotic-nyx, ... }:
+{ config, pkgs, inputs, ... }:
 {
-  fileSystems."/mnt/vault3" = {
-    device = "ryan@192.168.1.114:/mnt/vault3";
-    fsType = "fuse.sshfs";
-    options = [
-      "nodev"
-      "noatime"
-      "allow_other"
-      "_netdev"
-      "x-systemd.automount"
-      "nofail"
-      # Essential: Ensure the root user can read this file
-      "IdentityFile=/home/ryan/.ssh/id_ed25519"
-      # Optional but recommended for stable mounts
-      "reconnect"
-      "ServerAliveInterval=15"
-      "idmap=user"
-    ];
-  };
-  # Ensure the fuse module and sshfs are available
-  boot.supportedFilesystems = [ "fuse.sshfs" ];
-
   imports =
     [ 
       ./hardware-configuration.nix
     ];
+  
+  nixpkgs.overlays = [
+    (final: prev: {
+      kdenlive = prev.kdenlive.overrideAttrs (oldAttrs: {
+        buildInputs = oldAttrs.buildInputs ++ [ final.shaderc ];
+      });
+    })
+  ];
   #power managament
   powerManagement.enable = true;
   # Bootloader.
@@ -60,6 +47,13 @@
     timeshift
     nvtopPackages.intel
   ];
+  hardware = {
+    bluetooth = {
+      enable = true;
+      powerOnBoot = false; 
+    };
+  };
+
   services = {
     blueman = {
       enable = true;
@@ -81,7 +75,7 @@
     };
   };
   # Open ports in the firewall.
-   networking.firewall.allowedTCPPorts = [ 8096 ];
+  #networking.firewall.allowedTCPPorts = [ 8096 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   networking.firewall.enable = true;
