@@ -3,10 +3,10 @@
       # Required for containers in a pod to communicate (e.g., via podman-compose)
       defaultNetwork.settings.dns_enabled = true;
     };
-    oci-containers = {
+    oci-containers.containers = {
       backend = "podman";
     };
-    containers.containers."wireguard" = {
+    oci-containers.containers."wireguard" = {
       image = "ghcr.io/wg-easy/wg-easy:latest";
       ports = [
         "51820:51820/udp"
