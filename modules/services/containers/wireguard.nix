@@ -1,35 +1,74 @@
 {
+  # 1. Enable Podman and OCI backend
   virtualisation = {
-      # Required for containers in a pod to communicate (e.g., via podman-compose)
+    containers.enable = true;
+    podman = {
       defaultNetwork.settings.dns_enabled = true;
     };
-    oci-containers.containers = {
-      backend = "podman";
+    oci-containers.backend = "podman";
+  };
+  # 2. Define the wg-easy container
+  virtualisation.oci-containers.containers.wireguard = {
+    image = "ghcr.io/wg-easy/wg-easy:latest";
+    ports = [ 
+      "51820:51820/udp" 
+      "51821:51821/tcp" 
+    ];
+    environment = {
+      WG_HOST = "47.231.219.6";
+      PASSWORD = "test"; # Recommended: Use environmentFiles for secrets
     };
-    oci-containers.containers."wireguard" = {
-      image = "ghcr.io/wg-easy/wg-easy:latest";
-      ports = [
-        "51820:51820/udp"
-        "51821:51821/tcp"
-      ];
-      environment = {
-        WG_HOST = " 47.231.219.6";
-        PASSWORD = "test";
-      };
-      volumes = [
-        "/var/lib/wg-easy:/etc/wireguard"
-      ];
-      extraOptions = [
-        "--cap-add=NET_ADMIN"
-        "--sysctl=net.ipv4.conf.all.src_valid_mark=1"
-      ];
-    };
-  # Enable IP forwarding for VPN routing
-  boot.kernel.sysctl = {
-    "net.ipv4.ip_forward" = 1;
+    volumes = [ 
+      "/var/lib/wg-easy:/etc/wireguard" 
+    ];
+    extraOptions = [ 
+      "--cap-add=NET_ADMIN" 
+      "--cap-add=SYS_MODULE" # Often required for WireGuard kernel modules
+      "--sysctl=net.ipv4.conf.all.src_valid_mark=1" 
+    ];
+  };
+  # 3. Networking and Kernel settings
+  boot.kernel.sysctl = { 
+    "net.ipv4.ip_forward" = 1; 
     "net.ipv6.conf.all.forwarding" = 1;
   };
+  networking.firewall = {
+    allowedUDPPorts = [ 51820 ]; # External VPN access
+    allowedTCPPorts = [ 51821 ]; # Web UI access
+  };
 }
+#{
+#  virtualisation = {
+#      # Required for containers in a pod to communicate (e.g., via podman-compose)
+#      defaultNetwork.settings.dns_enabled = true;
+#    };
+#    oci-containers.containers = {
+#      backend = "podman";
+#    };
+#    oci-containers.containers."wireguard" = {
+#      image = "ghcr.io/wg-easy/wg-easy:latest";
+#      ports = [
+#        "51820:51820/udp"
+#        "51821:51821/tcp"
+#      ];
+#      environment = {
+#        WG_HOST = " 47.231.219.6";
+#        PASSWORD = "test";
+#      };
+#      volumes = [
+#        "/var/lib/wg-easy:/etc/wireguard"
+#      ];
+#      extraOptions = [
+#        "--cap-add=NET_ADMIN"
+#        "--sysctl=net.ipv4.conf.all.src_valid_mark=1"
+#      ];
+#    };
+#  # Enable IP forwarding for VPN routing
+#  boot.kernel.sysctl = {
+#    "net.ipv4.ip_forward" = 1;
+#    "net.ipv6.conf.all.forwarding" = 1;
+#  };
+#}
 
 #virtualisation.oci-containers.containers."wireguard" = {
 #      image = "ghcr.io/wg-easy/wg-easy:latest";
