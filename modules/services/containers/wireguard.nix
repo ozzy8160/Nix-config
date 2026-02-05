@@ -16,7 +16,7 @@
     ];
     environment = {
       WG_HOST = "47.231.219.6";
-      PASSWORD = "test"; # Recommended: Use environmentFiles for secrets
+      PASSWORD = "$6$q1q5t39KE4B0yRl2$l/Cb6Wy5EdPtUfaCFbieBThYvtTcWA5VplRaxUbb0fLtZwMtAgusqkXEyyUIchF26GnNt/T/s6buQN57D59Ps0"; # Recommended: Use environmentFiles for secrets
     };
     volumes = [ 
       "/var/lib/wg-easy:/etc/wireguard" 
