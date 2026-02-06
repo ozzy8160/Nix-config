@@ -17,14 +17,20 @@
     environment = {
       WG_HOST = "47.231.219.6";
       PASSWORD_HASH = "$6$q1q5t39KE4B0yRl2$l/Cb6Wy5EdPtUfaCFbieBThYvtTcWA5VplRaxUbb0fLtZwMtAgusqkXEyyUIchF26GnNt/T/s6buQN57D59Ps0"; # Recommended: Use environmentFiles for secrets
+      WG_DEVICE = "podman0";
+      WG_DEFAULT_ADDRESS = "10.8.0.x";
+      # Force wg-easy to figure out the internet-facing interface
+      WG_POST_UP = "iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -j MASQUERADE";
+      WG_POST_DOWN = "iptables -t nat -D POSTROUTING -s 10.8.0.0/24 -j MASQUERADE";
     };
     volumes = [ 
       "/var/lib/wg-easy:/etc/wireguard" 
     ];
     extraOptions = [ 
       "--cap-add=NET_ADMIN" 
-      "--cap-add=SYS_MODULE" # Often required for WireGuard kernel modules
+      "--cap-add=NET_RAW"
       "--sysctl=net.ipv4.conf.all.src_valid_mark=1" 
+      "--device=/dev/net/tun:/dev/net/tun"
     ];
   };
   # 3. Networking and Kernel settings
@@ -32,6 +38,7 @@
     "net.ipv4.ip_forward" = 1; 
     "net.ipv6.conf.all.forwarding" = 1;
   };
+  boot.kernelModules = [ "wireguard" "iptable_nat" "iptable_mangle" "iptable_raw" ];
   networking.firewall = {
     allowedUDPPorts = [ 51820 ]; # External VPN access
     allowedTCPPorts = [ 51821 ]; # Web UI access
