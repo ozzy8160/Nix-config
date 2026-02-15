@@ -65,6 +65,7 @@
         modules = [
           ./hosts/GamingPC/configuration.nix
           ./modules/hardware/network_drives/vault3.nix
+          ./modules/hardware/drives/backup_vault.nix
           ./modules/terminal
           ./modules/common.nix
           ./modules/gaming.nix
@@ -105,8 +106,8 @@
           ./modules/common.nix
           ./modules/terminal
           ./modules/services/podman.nix
-          ./modules/services/containers/jellyfin.nix
-          ./modules/disko-config.nix
+          #        ./modules/services/containers/jellyfin.nix
+          # ./modules/disko-config.nix
           # ./modules/hardware/gpu/igpu8.nix
           # inputs.disko.nixosModules.disko
         ];
