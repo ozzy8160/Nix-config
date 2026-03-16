@@ -17,8 +17,12 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
-  outputs = { self, nixpkgs, systems, nvim-config, nixos-generators, ... }@ inputs:
+  outputs = { self, nixpkgs, systems, nvim-config, nixos-generators, nix-index-database, ... }@ inputs:
   let
     system = "x86_64-linux";
   in
@@ -46,6 +50,7 @@
           ./modules/media.nix
           ./modules/hardware/gpu/igpu8.nix
           ./modules/hardware/network_drives/vault3.nix
+          nix-index-database.nixosModules.nix-index
         ];
       };
     };
@@ -100,16 +105,14 @@
     nixosConfigurations = {
       jellyfin3 = nixpkgs.lib.nixosSystem {
         system = "${system}";
-        specialArgs = { inherit nvim-config; };
         modules = [
           ./vms/jellyfin3/configuration.nix
+          ./vms/jellyfin3/qcow.nix
           ./modules/common.nix
           ./modules/terminal
           ./modules/services/podman.nix
-          #        ./modules/services/containers/jellyfin.nix
-          # ./modules/disko-config.nix
-          # ./modules/hardware/gpu/igpu8.nix
-          # inputs.disko.nixosModules.disko
+          ./modules/services/containers
+          ./modules/hardware/network_drives/vault3.nix
         ];
       };
     };
@@ -125,6 +128,10 @@
           system = "${system}";
           modules = [
             ./vms/jellyfin3/configuration.nix
+            ./modules/common.nix
+            ./modules/terminal
+            ./modules/services/podman.nix
+            ./modules/hardware/network_drives/vault3.nix
           ];
           format = "qcow";
         };

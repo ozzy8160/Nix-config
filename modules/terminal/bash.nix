@@ -1,24 +1,53 @@
 { ... }:
   {
     environment.pathsToLink = [ "/share/bash-completion" ];
+    #so zoxide will shutup 
+    environment.variables._ZO_DOCTOR = "0";
+
+    environment.variables = {
+      HISTSIZE = "999999";
+      HISTFILESIZE = "999999";
+      # Optional: Don't store duplicate lines or lines starting with a space
+      HISTCONTROL = "ignoreboth";
+      HISTTIMEFORMAT="%F %T";
+    };
     programs = {
       command-not-found.enable = false;
       nix-index.enable = true;
+      nix-index-database.comma.enable = true; # Adds 'comma' to run programs without installing
       bash = {
         completion.enable = true;
+        loginShellInit = ''
+          if [ -z "$DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ]; then
+            start-hyprland
+          fi
+        '';
+        interactiveShellInit = ''
+          if [ -f ~/.cache/wal/sequences ]; then
+            (cat ~/.cache/wal/sequences &)
+          fi
+          eval "$(zoxide init bash)"
+          eval "$(fzf --bash)"
+          fastfetch
+          #check if shell is interactive
+          if [[ $- == *i* ]]; then
+            #bind CTRL+f to insert 'zi' followed by a newline
+            bind '"\C-f":"zi\n"'
+          fi      
+        '';
         shellAliases = {
-          zl = '';
+          zl = ''
             if [ -n "1" ]; then
-              z "$@" && ll
+              zoxide "$@" && ll
             else
-              z ~ && ll
+              zoxide ~ && ll
             fi
           '';
           mkdirg = ''
             mkdir -p "$1"
             cd "$1"
           '';
-          cd = ''
+          cdls = ''
             if [ -n "1" ]; then
               builtin cd "$@" && ll
             else

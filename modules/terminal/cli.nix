@@ -32,9 +32,11 @@
       kitty
       ncdu
       neovim
+      nix-bash-completions
       rclone
       ripgrep
       sftpman
+      smartmontools
       sshfs
       starship
       tree
