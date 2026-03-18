@@ -1,28 +1,29 @@
 { config, pkgs, inputs, ... }:
 {
 # imports =
-#     [
-#       ./hardware-configuration.nix
-#     ];
-  boot.initrd.availableKernelModules = [
-      "virtio_net" # For virtual network devices
-      "virtio_pci" # For various virtio devices
-      "vfio-pci"   # For PCI passthrough
-      "virtio_blk" # For virtio block devices
-    ];
-
-    # Optional: Force some modules to load
-    boot.initrd.kernelModules = [
-      "virtio_balloon" # Helps with memory ballooning
-      "virtio_console"
-      "virtio_rng"     # For random number generation
-    ];
+#   [
+#     ./hardware-configuration.nix
+#   ];
+  #  boot.growPartition = true;
+  #  boot.initrd.availableKernelModules = [
+  #      "virtio_net" # For virtual network devices
+  #      "virtio_pci" # For various virtio devices
+  #      "vfio-pci"   # For PCI passthrough
+  #      "virtio_blk" # For virtio block devices
+  #    ];
+  #
+  #    # Optional: Force some modules to load
+  #    boot.initrd.kernelModules = [
+  #      "virtio_balloon" # Helps with memory ballooning
+  #      "virtio_console"
+  #      "virtio_rng"     # For random number generation
+  #    ];
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  #  boot.loader.systemd-boot.enable = true;
+  #  boot.loader.efi.canTouchEfiVariables = true;
 
   # Enable networking and set host name
-  networking.networkmanager.enable = false;
+  #  networking.networkmanager.enable = false;
   networking.hostName = "jellyfin3"; # Define your hostname.
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -41,6 +42,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     nvtopPackages.intel
+    btop
   ];
    programs.gnupg.agent = {
      enable = true;
