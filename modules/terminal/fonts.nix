@@ -12,7 +12,7 @@
       font-awesome
       noto-fonts-color-emoji
       noto-fonts
-    #  jetbrains-mono
+      jetbrains-mono
       powerline-fonts
       powerline-symbols
       material-icons

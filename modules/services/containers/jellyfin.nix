@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{
   virtualisation.oci-containers.containers."jellyfin" = {
       autoStart = true;
       image = "jellyfin/jellyfin";
