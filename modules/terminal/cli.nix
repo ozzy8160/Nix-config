@@ -1,13 +1,14 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
   {
     # startship
     programs ={
       starship = {
         enable = true;
         # Configuration written to ~/.config/starship.toml
-        settings = {
-          add_newline = false;
-        };
+        settings = lib.importTOML ./starship.toml;
+      # settings = {
+      #    add_newline = false;
+      #  };
       };
       fuse = {
         userAllowOther = true;
