@@ -1,16 +1,11 @@
-{ config, pkgs, inputs, ... }:
+{ pkgs, ... }:
 {
   imports =
     [ 
       ./hardware-configuration.nix
     ];
-  
-  nixpkgs.overlays = [
-    (final: prev: {
-      kdenlive = prev.kdenlive.overrideAttrs (oldAttrs: {
-        buildInputs = oldAttrs.buildInputs ++ [ final.shaderc ];
-      });
-    })
+ boot.kernelParams = [ 
+    "nvme_core.default_ps_max_latency_us=0" 
   ];
   #power managament
   powerManagement.enable = true;

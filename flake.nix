@@ -22,7 +22,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = { self, nixpkgs, systems, nvim-config, nixos-generators, nix-index-database, ... }@ inputs:
+  outputs = { self, nixpkgs, systems, nvim-config, nixos-generators, nix-index-database, disko, ... }@ inputs:
   let
     system = "x86_64-linux";
   in
@@ -106,13 +106,15 @@
       jellyfin3 = nixpkgs.lib.nixosSystem {
         system = "${system}";
         modules = [
+          disko.nixosModules.disko
+          ./vms/jellyfin3/disko_config.nix
           ./vms/jellyfin3/configuration.nix
-          ./vms/jellyfin3/qcow.nix
+            #./vms/jellyfin3/qcow.nix
           ./modules/common.nix
           ./modules/terminal
           ./modules/services/podman.nix
           ./modules/services/containers
-          ./modules/hardware/network_drives/vault3.nix
+            #./modules/hardware/network_drives/vault3.nix
         ];
       };
     };
