@@ -14,6 +14,7 @@
       hyprcursor
       hyprlock
       hypridle
+      hyprpaper
       hyprpolkitagent
       kdePackages.kdenlive
       nemo
@@ -22,7 +23,6 @@
       rofi
       searxng
       slurp
-      swww
       sway
       pavucontrol
       pulseaudio
