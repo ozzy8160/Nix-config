@@ -1,4 +1,7 @@
-{ config, pkgs, inputs, ... }:
+{ pkgs, ... }:
+let
+  USER = "ryan";
+in
 {
 # imports =
 #   [
@@ -24,12 +27,23 @@
 
   # Enable networking and set host name
   #  networking.networkmanager.enable = false;
+  boot.loader.grub = {
+    enable = true;
+    device = "/dev/vda"; # Must match the disk in your QEMU command
+    efiSupport = false;  # Explicitly disable UEFI
+  };
+
+  # Since you are using GPT, you need this for GRUB to work with BIOS
+  boot.loader.grub.forceInstall = true; 
+  
   networking.hostName = "jellyfin3"; # Define your hostname.
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.ryan = {
+  users.users.${USER} = {
     isNormalUser = true;
-    description = "ryan";
+    description = "${USER}";
+    home = "/home/${USER}";
+    createHome = true;
     extraGroups = [ "networkmanager" "wheel" "podman" ];
     openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBvbnsGi5apMZqNfL7Ml4Zo7uExmTub9PXYGyuUJj1LJ ryanpctech81@gmail.com"];
     initialPassword = "password";

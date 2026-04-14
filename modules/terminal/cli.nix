@@ -34,6 +34,7 @@
       ncdu
       neovim
       nix-bash-completions
+      pay-respects
       rclone
       ripgrep
       sftpman

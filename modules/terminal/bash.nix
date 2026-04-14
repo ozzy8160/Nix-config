@@ -1,5 +1,11 @@
-{ ... }:
+{ pkgs, ... }:
   {
+    security.wrappers.btop = {
+      owner = "root";
+      group = "root";
+      capabilities = "cap_perfmon=ep";
+      source = "${pkgs.btop}/bin/btop";
+    };
     environment.pathsToLink = [ "/share/bash-completion" ];
     #so zoxide will shutup 
     environment.variables._ZO_DOCTOR = "0";
@@ -14,7 +20,7 @@
     programs = {
       command-not-found.enable = false;
       nix-index.enable = true;
-      nix-index-database.comma.enable = true; # Adds 'comma' to run programs without installing
+    #nix-index-database.comma.enable = true; # Adds 'comma' to run programs without installing
       bash = {
         completion.enable = true;
         loginShellInit = ''
@@ -26,6 +32,7 @@
           if [ -f ~/.cache/wal/sequences ]; then
             (cat ~/.cache/wal/sequences &)
           fi
+          eval "$(pay-respects bash --alias)"
           eval "$(zoxide init bash)"
           eval "$(fzf --bash)"
           fastfetch
@@ -74,7 +81,7 @@
           rebootforce = "sudo shutdown -r -n now";
           sj = "ssh ryan@192.168.1.58";
           sg = "ssh ryan@192.168.1.39";
-          sn = "kitty +kitten ssh ryan@192.168.1.114";
+          sn = "kitty +kitten ssh ryan@192.168.1.113";
           revault = "sshfs -o allow_other,default_permissions ryan@192.168.1.114:/mnt/vault3 /mnt/vault3";
         };
       };
