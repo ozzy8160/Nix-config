@@ -94,6 +94,7 @@
         modules = [
           ./hosts/nixos-file-server/configuration.nix
           ./modules/common.nix
+          ./modules/static_ip.nix
           ./modules/terminal
           ./modules/services/podman.nix
           ./modules/services/containers
